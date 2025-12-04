@@ -23,13 +23,20 @@ export default function UserHeaderMenu({
 
         {/* IZQUIERDA - ÍCONO HOGAR MOBILE + NAVEGACIÓN DESKTOP */}
         <div className="flex items-center gap-2">
-          {/* ÍCONO HOGAR - SOLO MOBILE */}
-          <Button
-            onClick={onGoProducts}
-            className="sm:hidden h-10 w-10 p-0 flex items-center justify-center text-xl"
-          >
-            🏠
-          </Button>
+          {/* BOTONES MOBILE */}
+          <div className="sm:hidden flex items-center gap-2">
+            {onGoProducts && (
+              <Button onClick={onGoProducts} className="px-3 py-2 text-sm">
+                🏠
+              </Button>
+            )}
+
+            {onGoCart && (
+              <Button onClick={onGoCart} className="px-3 py-2 text-sm">
+                🛒
+              </Button>
+            )}
+          </div>
 
           {/* BOTONES DESKTOP */}
           <div className="hidden sm:flex items-center gap-2">

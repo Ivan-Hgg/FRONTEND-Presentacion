@@ -117,12 +117,9 @@ function CartPage() {
         <Card className="p-6 max-w-md shadow-lg">
           <h1 className="text-3xl font-semibold mb-4">Carrito vacío</h1>
           <p className="text-gray-600 mb-6 text-lg">
-            Parece que todavía no agregaste productos.
+            Todavía no agregaste productos.
           </p>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
-            className="w-32 mx-auto opacity-80 mb-6"
-          />
+          
           <Button className="w-full text-lg py-2" onClick={() => navigate('/')}>
             Ver productos
           </Button>
