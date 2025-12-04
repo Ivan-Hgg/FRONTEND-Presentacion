@@ -1,15 +1,18 @@
 import { instance } from '../../shared/api/axiosInstance';
 
 export const getOrders = async (name = null, status = null, pageNumber = 1, pageSize = 20) => {
-  const queryString = new URLSearchParams({
-    name,
-    status,
-    pageNumber,
-    pageSize,
-  });
+  const params = {
+    Page: pageNumber,      // Swagger
+    PageSize: pageSize,    
+  };
+
+  if (name) params.Name = name;       // Swagger: "Name"
+  if (status) params.Status = status; // Swagger: "Status"
+
+  const queryString = new URLSearchParams(params).toString();
 
   try {
-    // Primero intento con axios
+    // --- INTENTO 1: AXIOS ---
     const response = await instance.get(`api/orders?${queryString}`);
 
     if (response.status === 204) {
@@ -17,10 +20,12 @@ export const getOrders = async (name = null, status = null, pageNumber = 1, page
     }
 
     return { data: response.data, error: null };
-  } catch {
+
+  } catch (axiosError) {
+    
     try {
-      // Si axios falla, intento con fetch manual
-      const url = `api/orders?${queryString}`;
+      const url = `api/orders?${queryString}`; 
+      
       const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -40,13 +45,11 @@ export const getOrders = async (name = null, status = null, pageNumber = 1, page
         throw new Error(data?.message || 'Error al cargar las órdenes');
       }
 
-      const items = data?.items || data?.results || data || [];
+      return { data: data, error: null };
 
-      return { data: Array.isArray(items) ? items : [], error: null };
-    } catch (error) {
-      console.error('Error al listar órdenes:', error);
-
-      return { data: [], error };
+    } catch (fetchError) {
+      console.error('Error al listar órdenes:', fetchError);
+      return { data: [], error: fetchError };
     }
   }
 };
