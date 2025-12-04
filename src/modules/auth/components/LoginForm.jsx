@@ -50,15 +50,15 @@ function LoginForm({ onSuccess }) {
         return;
       }
 
-      if (onSuccess) return onSuccess();
+      const role = (user?.role || '').toLowerCase();
 
-      const role = (user?.role || '').toLowerCase(); // Convertimos a minúscula por seguridad
-
-      if (role === 'admin') {
-        navigate('/admin/home'); // Al panel de Admin
-      } else {
-        navigate('/'); // A la tienda (Home del cliente)
+      if (role == 'admin'){
+        navigate('/admin/home');
+        return;
       }
+
+      if (onSuccess) return onSuccess();
+      navigate('/'); 
 
     } catch (err) {
       handleApiError(err, {
