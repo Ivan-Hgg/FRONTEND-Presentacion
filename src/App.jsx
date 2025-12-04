@@ -15,7 +15,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <><Outlet /></>,
+      element: <ProtectedRoute disallowedRoles={['admin']}><Outlet /></ProtectedRoute>,
       children: [
         {
           path: '/',
@@ -38,7 +38,7 @@ function App() {
     {
       path: '/admin',
       element: (
-        <ProtectedRoute>
+        <ProtectedRoute allowedRoles={['admin']}>
           <Dashboard />
         </ProtectedRoute>
       ),
