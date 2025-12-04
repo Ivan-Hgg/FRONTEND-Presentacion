@@ -68,7 +68,7 @@ export default function MobileSideMenu({
       )}
 
       <Button className="text-xl mt-4 w-full" onClick={onClose}>
-        Cerrar ✘
+        Cerrar
       </Button>
     </div>
   );

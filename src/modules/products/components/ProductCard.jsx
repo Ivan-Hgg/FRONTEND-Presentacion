@@ -44,7 +44,6 @@ export default function ProductCard({
     style: 'currency',
     currency: 'ARS',
   });
-  //uso: {formatPrice(currentUnitPrice)}
 
   return (
     <div className="flex flex-col h-full">
@@ -67,14 +66,14 @@ export default function ProductCard({
         )}
 
           {isMaxReached && (
-            <span className="text-sm text-red-600 font-medium">No hay stock</span>
+            <span className="text-sm text-red-600 font-medium">No hay suficiente stock</span>
           )}
 
         <div className="flex items-center gap-4 mt-auto pt-3">
           <QuantitySelector
             value={quantity}
             min={1}
-            max={stockQuantity}
+            max={stockQuantity-inCartQty} //para que cuente con lo que ya esta en el carrito
             onChange={onChangeQty}
           />
 
