@@ -84,7 +84,7 @@ function AuthProvider({ children }) {
       onExpire: () => handleExpire(data.user),
     });
 
-    return { error: null };
+    return { user: data.user, error: null };
   };
 
   const register = async (username, password, email, role) => {

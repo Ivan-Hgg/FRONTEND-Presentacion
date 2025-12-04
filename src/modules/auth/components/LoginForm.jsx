@@ -32,7 +32,7 @@ function LoginForm({ onSuccess }) {
     setErrorMessages([]);
 
     try {
-      const { error } = await singin(formData.username, formData.password);
+      const { user, error } = await singin(formData.username, formData.password);
 
       if (error) {
         const { full } = handleApiError(error, {
@@ -52,7 +52,14 @@ function LoginForm({ onSuccess }) {
 
       if (onSuccess) return onSuccess();
 
-      navigate('/admin/home');
+      const role = (user?.role || '').toLowerCase(); // Convertimos a minúscula por seguridad
+
+      if (role === 'admin') {
+        navigate('/admin/home'); // Al panel de Admin
+      } else {
+        navigate('/'); // A la tienda (Home del cliente)
+      }
+
     } catch (err) {
       handleApiError(err, {
         frontendMessages: frontendErrorMessage,
